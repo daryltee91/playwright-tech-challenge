@@ -35,6 +35,8 @@ docker run -it playwright-tests:latest npm run test
 
 - I assume that the datasets are available in a students.json file.
 
+- I assume that the second dataset is expected to fail as there is no hobby checkbox for 'Traveling'.
+
 - I assume that the test should simulate user interaction as closely as possible:
   
   - For datepicker fields: click on the input field, and then select the year, month, and date.

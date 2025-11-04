@@ -44,7 +44,11 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
 
   // Select hobbies
   for (const hobby of student.hobbies) {
-    await page.getByLabel(hobby, { exact: true }).click({ force: true });
+    if (await page.getByLabel(hobby, { exact: true }).isVisible()) {
+      await page.getByLabel(hobby, { exact: true }).click({ force: true });
+    } else {
+      throw new Error(`Hobby "${hobby}" is not a valid option.`);
+    }
   }
 
   // Set picture
@@ -125,8 +129,21 @@ test.use({
   viewport: { width: 1920, height: 1080 },
 });
 
-test("submit first student", async ({ page }) => {
-  await page.goto("https://demoqa.com/automation-practice-form");
-  await doFormSubmission(page, students[0]);
-  await validateFormSubmission(page, students[0]);
+test.describe("Form Submission Tests", () => {
+  test("should submit first student successfully", async ({ page }) => {
+    await page.goto("https://demoqa.com/automation-practice-form");
+
+    await doFormSubmission(page, students[0]);
+    await validateFormSubmission(page, students[0]);
+  });
+
+  test.fail(
+    "should fail second student submission due to invalid hobby 'Traveling'",
+    async ({ page }) => {
+      await page.goto("https://demoqa.com/automation-practice-form");
+
+      await doFormSubmission(page, students[1]);
+      await validateFormSubmission(page, students[1]);
+    }
+  );
 });

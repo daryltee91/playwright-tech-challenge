@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
+import type { StudentProps } from "../types";
 
-const datasets = [
+const datasets: StudentProps[] = [
   {
     firstName: "John",
     lastName: "Doe",

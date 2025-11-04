@@ -1,27 +1,8 @@
 import { test, expect, Page } from "@playwright/test";
 import type { StudentProps } from "../types";
+import datasets from "../assets/data/students.json" assert { type: "json" };
 
-const datasets: StudentProps[] = [
-  {
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@example.com",
-    gender: "Male",
-    mobile: "1234567890",
-    subjects: ["Maths"],
-    hobbies: ["Sports", "Music"],
-    address: {
-      block: "123",
-      street: "Test Street",
-      unit: "03",
-      level: "1234",
-      building: "Test Building",
-      postal: "123456",
-    },
-    state: "NCR",
-    city: "Delhi",
-  },
-];
+const students: StudentProps[] = datasets;
 
 const doFormSubmission = async (page: Page, student: StudentProps) => {
   // Implementation of form submission using data
@@ -35,19 +16,19 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
   });
 
   // Fill First Name
-  await page.getByPlaceholder("First Name").fill(datasets[0].firstName);
+  await page.getByPlaceholder("First Name").fill(student.firstName);
 
   // Fill Last Name
-  await page.getByPlaceholder("Last Name").fill(datasets[0].lastName);
+  await page.getByPlaceholder("Last Name").fill(student.lastName);
 
   // Fill Email
-  await page.getByPlaceholder("name@example.com").fill(datasets[0].email);
+  await page.getByPlaceholder("name@example.com").fill(student.email);
 
   // Fill Mobile Number
-  await page.getByPlaceholder("Mobile Number").fill(datasets[0].mobile);
+  await page.getByPlaceholder("Mobile Number").fill(student.mobile);
 
   // Select Gender
-  await page.getByLabel(datasets[0].gender, { exact: true }).click({ force: true }); // Force the click on the input, as the label intercepts it and will prevent the click.
+  await page.getByLabel(student.gender, { exact: true }).click({ force: true }); // Force the click on the input, as the label intercepts it and will prevent the click.
 
   // Set Date of Birth
   await page.locator("#dateOfBirthInput").click();
@@ -56,7 +37,7 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
   await page.locator(".react-datepicker__day--015").click();
 
   // Fill subjects
-  for (const subject of datasets[0].subjects) {
+  for (const subject of student.subjects) {
     await page.locator(".subjects-auto-complete__value-container").pressSequentially(subject);
     await page.locator(".subjects-auto-complete__value-container").press("Enter");
   }
@@ -68,11 +49,19 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
   await page
     .locator("#currentAddress")
     .fill(
-      `${datasets[0].address.block} ${datasets[0].address.street}; #${datasets[0].address.level}-${datasets[0].address.unit}; ${datasets[0].address.building}; Singapore Postal code ${datasets[0].address.postal}`
+      `${student.address.block} ${student.address.street}; #${student.address.level}-${student.address.unit}; ${student.address.building}; Singapore Postal code ${student.address.postal}`
     );
+
+  // Select State
+  await page.locator("#state").click();
+  await page.getByText(student.state, { exact: true }).click();
+
+  // Select City
+  await page.locator("#city").click();
+  await page.getByText(student.city, { exact: true }).click();
 };
 
-test("submit first dataset", async ({ page }) => {
+test("submit first student", async ({ page }) => {
   await page.goto("https://demoqa.com/automation-practice-form");
-  await doFormSubmission(page, datasets[0]);
+  await doFormSubmission(page, students[0]);
 });

@@ -13,6 +13,7 @@ export type StudentProps = {
     email: string;
     gender: string;
     mobile: string;
+    dateOfBirth: string;
     subjects: string[];
     hobbies: string[];
     address: AddressProps;

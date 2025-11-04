@@ -33,6 +33,8 @@ docker run -it playwright-tests:latest npm run test
 
 ### Test Case 1
 
+- I assume that the datasets are available in a students.json file.
+
 - I assume that the test should simulate user interaction as closely as possible:
   
   - For datepicker fields: click on the input field, and then select the year, month, and date.

@@ -115,10 +115,14 @@ const validateFormSubmission = async (page: Page, student: StudentProps) => {
       default:
         break;
     }
-
-    await page.locator("#closeLargeModal").click();
   }
+
+  await page.locator("#closeLargeModal").click({ force: true });
 };
+
+test.use({
+  viewport: { width: 1920, height: 1080 },
+});
 
 test("submit first student", async ({ page }) => {
   await page.goto("https://demoqa.com/automation-practice-form");

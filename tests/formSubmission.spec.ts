@@ -86,6 +86,7 @@ const validateFormSubmission = async (page: Page, student: StudentProps) => {
         break;
       case 1: // Email
         expect(value).toBe(student.email);
+        break;
       case 2: // Gender
         expect(value).toBe(student.gender);
         break;

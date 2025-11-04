@@ -5,7 +5,7 @@
     "email": "john.doe@example.com",
     "gender": "Male",
     "mobile": "1234567890",
-    "dateOfBirth": "1991-03-15",
+    "dateOfBirth": "1991-11-29",
     "subjects": ["Maths"],
     "hobbies": ["Sports", "Music"],
     "address": {
@@ -25,7 +25,7 @@
     "email": "jane.smith@example.com",
     "gender": "Female",
     "mobile": "9876543210",
-    "dateOfBirth": "1992-08-25",
+    "dateOfBirth": "1992-05-17",
     "subjects": ["English"],
     "hobbies": ["Reading", "Traveling"],
     "address": {

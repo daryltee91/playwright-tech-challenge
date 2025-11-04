@@ -1,9 +1,16 @@
 import { test, expect, Page } from "@playwright/test";
 import type { StudentProps } from "../types";
 import datasets from "../assets/data/students.json" assert { type: "json" };
+import dayjs from "dayjs";
 
 const students: StudentProps[] = datasets;
 
+/**
+ * Performs form submission using the provided student data.
+ *
+ * @param page
+ * @param student
+ */
 const doFormSubmission = async (page: Page, student: StudentProps) => {
   // Implementation of form submission using data
   // Wait for form to be visible
@@ -31,10 +38,16 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
   await page.getByLabel(student.gender, { exact: true }).click({ force: true });
 
   // Set Date of Birth
+  const dateOfBirth = dayjs(student.dateOfBirth);
   await page.locator("#dateOfBirthInput").click();
-  await page.locator(".react-datepicker__year-select").selectOption("1990");
-  await page.locator(".react-datepicker__month-select").selectOption("4");
-  await page.locator(".react-datepicker__day--015").click();
+  await page.locator(".react-datepicker__year-select").selectOption(dateOfBirth.year().toString());
+  await page
+    .locator(".react-datepicker__month-select")
+    .selectOption(dateOfBirth.month().toString());
+  await page
+    .locator(`div.react-datepicker__day:not(.react-datepicker__day--outside-month)`)
+    .getByText(dateOfBirth.date().toString())
+    .click();
 
   // Fill subjects
   for (const subject of student.subjects) {
@@ -69,9 +82,16 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
   await page.locator("#city").click();
   await page.getByText(student.city, { exact: true }).click();
 
+  // Click the submit button
   await page.locator("#submit").click();
 };
 
+/**
+ * Validates that the form's submission success modal contains the correct data.
+ *
+ * @param page
+ * @param student
+ */
 const validateFormSubmission = async (page: Page, student: StudentProps) => {
   // Wait for modal dialog to be visible
   await expect(page.getByText("Thanks for submitting the form")).toBeVisible();
@@ -98,7 +118,7 @@ const validateFormSubmission = async (page: Page, student: StudentProps) => {
         expect(value).toBe(student.mobile);
         break;
       case 4: // Date of Birth
-        expect(value).toBe("15 May,1990");
+        expect(value).toBe(dayjs(student.dateOfBirth).format("D MMMM,YYYY"));
         break;
       case 5: // Subjects
         expect(value).toBe(student.subjects.join(", "));
@@ -148,7 +168,7 @@ test.describe("Form Submission Tests", () => {
         throw new Error(process.env.DEMOQA_FORM_URL);
       }
 
-      await page.goto("https://demoqa.com/automation-practice-form");
+      await page.goto(process.env.DEMOQA_FORM_URL);
 
       await doFormSubmission(page, students[1]);
       await validateFormSubmission(page, students[1]);

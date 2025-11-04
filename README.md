@@ -53,13 +53,13 @@ docker run -p 3000:9323 -it playwright-tests:latest npm run test:trace
 
 ## Assumptions
 
-- I assume that I am not restricted from using a javascript date library.
-
 ### Test Case 1
 
 - I assume that the datasets are available in a students.json file.
 
 - I assume that the second dataset is expected to fail as there is no hobby checkbox for 'Traveling'.
+
+- I assume that the date of birth is always in the format `YYYY-MM-DD`.
 
 - I assume that the test should simulate user interaction as closely as possible:
   

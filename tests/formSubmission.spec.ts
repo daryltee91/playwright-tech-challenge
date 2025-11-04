@@ -131,7 +131,11 @@ test.use({
 
 test.describe("Form Submission Tests", () => {
   test("should pass first student submission", async ({ page }) => {
-    await page.goto("https://demoqa.com/automation-practice-form");
+    if (typeof process.env.DEMOQA_FORM_URL === "undefined") {
+      throw new Error("DEMOQA_FORM_URL is undefined in .env");
+    }
+
+    await page.goto(process.env.DEMOQA_FORM_URL);
 
     await doFormSubmission(page, students[0]);
     await validateFormSubmission(page, students[0]);
@@ -140,6 +144,10 @@ test.describe("Form Submission Tests", () => {
   test.fail(
     "should fail second student submission due to invalid hobby 'Traveling'",
     async ({ page }) => {
+      if (typeof process.env.DEMOQA_FORM_URL === "undefined") {
+        throw new Error(process.env.DEMOQA_FORM_URL);
+      }
+
       await page.goto("https://demoqa.com/automation-practice-form");
 
       await doFormSubmission(page, students[1]);
@@ -150,7 +158,11 @@ test.describe("Form Submission Tests", () => {
   test("should pass second student submission after removing 'Traveling' hobby", async ({
     page,
   }) => {
-    await page.goto("https://demoqa.com/automation-practice-form");
+    if (typeof process.env.DEMOQA_FORM_URL === "undefined") {
+      throw new Error("DEMOQA_FORM_URL is undefined in .env");
+    }
+
+    await page.goto(process.env.DEMOQA_FORM_URL);
 
     const student = {
       ...students[1],

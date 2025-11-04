@@ -42,6 +42,8 @@ docker run -it playwright-tests:latest npm run test
 - For `Current Address`, 
   
   - I assume that I will use the `Address` value, and input any value of my choosing for any missing parts.
+
+  - I assume that `Address` can be broken up to `block`, `street`, `unit`, `level`, `building`, and `postal`.
   
   - For the format, I assume that the semicolon should come after each address part, to make it more human-readable. Thus, I will format it as:
     

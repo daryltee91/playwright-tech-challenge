@@ -5,6 +5,28 @@ Technical challenge using Playwright for E2E testing
 
 Create a `.env` file, using `env.sample` as a reference.
 
+Install dependencies
+
+```bash
+pnpm i
+```
+
+## Running Locally
+
+To run tests without tracing
+
+```bash
+pnpm run test
+```
+
+To run tests with tracing
+
+```bash
+pnpm run test:trace
+```
+
+## Running In Docker Container
+
 Build the docker image
 
 ```bash
@@ -17,29 +39,13 @@ Verify image was created successfully
 docker image ls
 ```
 
-### Run Tests Locally
-
-without tracing
-
-```bash
-pnpm run test
-```
-
-with tracing
-
-```bash
-pnpm run test:trace
-```
-
-### Run Tests In Docker Container
-
-without tracing
+To run tests without tracing
 
 ```bash
 docker run -it playwright-tests:latest npm run test
 ```
 
-with tracing
+To run tests with tracing
 
 ```bash
 docker run -p 3000:9323 -it playwright-tests:latest npm run test:trace

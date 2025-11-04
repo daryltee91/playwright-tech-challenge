@@ -15,14 +15,34 @@ Verify image was created successfully
 docker image ls
 ```
 
-## Run Tests Locally
+### Run Tests Locally
 
 ```bash
 pnpm run test
 ```
 
-## Run Tests In Docker Container
+### Run Tests In Docker Container
 
 ```bash
 docker run -it playwright-tests:latest npm run test
 ```
+
+## Assumptions
+
+- I assume that I am not restricted from using a javascript date library.
+
+### Test Case 1
+
+- I assume that the test should simulate user interaction as closely as possible:
+  
+  - For datepicker fields: click on the input field, and then select the year, month, and date.
+
+  - For select fields: click on the input field, and then selecting the option with the correct value.
+
+- For `Current Address`, 
+  
+  - I assume that I will use the `Address` value, and input any value of my choosing for any missing parts.
+  
+  - For the format, I assume that the semicolon should come after each address part, to make it more human-readable. Thus, I will format it as:
+    
+    `[Block Number] [Street Name]; #[Unit Level]-[Unit No.]; [Building Name]; Singapore Postal code [Postal Code]`

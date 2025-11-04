@@ -130,7 +130,7 @@ test.use({
 });
 
 test.describe("Form Submission Tests", () => {
-  test("should submit first student successfully", async ({ page }) => {
+  test("should pass first student submission", async ({ page }) => {
     await page.goto("https://demoqa.com/automation-practice-form");
 
     await doFormSubmission(page, students[0]);
@@ -146,4 +146,18 @@ test.describe("Form Submission Tests", () => {
       await validateFormSubmission(page, students[1]);
     }
   );
+
+  test("should pass second student submission after removing 'Traveling' hobby", async ({
+    page,
+  }) => {
+    await page.goto("https://demoqa.com/automation-practice-form");
+
+    const student = {
+      ...students[1],
+      hobbies: students[1].hobbies.filter((hobby) => hobby !== "Traveling"),
+    };
+
+    await doFormSubmission(page, student);
+    await validateFormSubmission(page, student);
+  });
 });

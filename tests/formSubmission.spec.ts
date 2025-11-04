@@ -64,9 +64,64 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
   // Select City
   await page.locator("#city").click();
   await page.getByText(student.city, { exact: true }).click();
+
+  await page.locator("#submit").click();
+};
+
+const validateFormSubmission = async (page: Page, student: StudentProps) => {
+  // Wait for modal dialog to be visible
+  await expect(page.getByText("Thanks for submitting the form")).toBeVisible();
+
+  // Get the number of rows in the submission table
+  const rows = page.locator(".modal-dialog table > tbody > tr");
+  const rowCount = await rows.count();
+
+  // Loop through the rows and validate each field
+  for (let i = 0; i < rowCount; i++) {
+    const value = await rows.nth(i).locator("td").nth(1).innerText();
+
+    switch (i) {
+      case 0: // First and Last Name
+        expect(value).toBe(`${student.firstName} ${student.lastName}`);
+        break;
+      case 1: // Email
+        expect(value).toBe(student.email);
+      case 2: // Gender
+        expect(value).toBe(student.gender);
+        break;
+      case 3: // Mobile
+        expect(value).toBe(student.mobile);
+        break;
+      case 4: // Date of Birth
+        expect(value).toBe("15 May,1990");
+        break;
+      case 5: // Subjects
+        expect(value).toBe(student.subjects.join(", "));
+        break;
+      case 6: // Hobbies
+        expect(value).toBe(student.hobbies.join(", "));
+        break;
+      case 7: // Picture
+        expect(value).toBe("example.png");
+        break;
+      case 8: // Address
+        expect(value).toBe(
+          `${student.address.block} ${student.address.street}; #${student.address.level}-${student.address.unit}; ${student.address.building}; Singapore Postal code ${student.address.postal}`
+        );
+        break;
+      case 9: // State and City
+        expect(value).toBe(`${student.state} ${student.city}`);
+        break;
+      default:
+        break;
+    }
+
+    await page.locator("#closeLargeModal").click();
+  }
 };
 
 test("submit first student", async ({ page }) => {
   await page.goto("https://demoqa.com/automation-practice-form");
   await doFormSubmission(page, students[0]);
+  await validateFormSubmission(page, students[0]);
 });

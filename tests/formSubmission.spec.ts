@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import type { StudentProps } from "../types";
 
 const datasets: StudentProps[] = [
@@ -23,9 +23,8 @@ const datasets: StudentProps[] = [
   },
 ];
 
-test("submit first dataset", async ({ page }) => {
-  await page.goto("https://demoqa.com/automation-practice-form");
-
+const doFormSubmission = async (page: Page, student: StudentProps) => {
+  // Implementation of form submission using data
   // Wait for form to be visible
   await expect(page.locator("#userForm")).toBeVisible();
 
@@ -71,4 +70,9 @@ test("submit first dataset", async ({ page }) => {
     .fill(
       `${datasets[0].address.block} ${datasets[0].address.street}; #${datasets[0].address.level}-${datasets[0].address.unit}; ${datasets[0].address.building}; Singapore Postal code ${datasets[0].address.postal}`
     );
+};
+
+test("submit first dataset", async ({ page }) => {
+  await page.goto("https://demoqa.com/automation-practice-form");
+  await doFormSubmission(page, datasets[0]);
 });

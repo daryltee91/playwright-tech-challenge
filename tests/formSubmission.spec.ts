@@ -28,7 +28,7 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
   await page.getByPlaceholder("Mobile Number").fill(student.mobile);
 
   // Select Gender
-  await page.getByLabel(student.gender, { exact: true }).click({ force: true }); // Force the click on the input, as the label intercepts it and will prevent the click.
+  await page.getByLabel(student.gender, { exact: true }).click({ force: true });
 
   // Set Date of Birth
   await page.locator("#dateOfBirthInput").click();
@@ -38,8 +38,13 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
 
   // Fill subjects
   for (const subject of student.subjects) {
-    await page.locator(".subjects-auto-complete__value-container").pressSequentially(subject);
-    await page.locator(".subjects-auto-complete__value-container").press("Enter");
+    await page.locator("#subjectsInput").pressSequentially(subject);
+    await page.locator("#subjectsInput").press("Enter");
+  }
+
+  // Select hobbies
+  for (const hobby of student.hobbies) {
+    await page.getByLabel(hobby, { exact: true }).click({ force: true });
   }
 
   // Set picture

@@ -61,7 +61,7 @@ docker run -p 3000:9323 -it playwright-tests:latest npm run test:trace
 
 - I assume that the datasets are available in a students.json file.
 
-- I assume that the second dataset is expected to fail as there is no hobby checkbox for 'Traveling'.
+- I assume that the second dataset as-is is expected to fail as there is no hobby checkbox for 'Traveling'.
 
 - I assume that the date of birth is always in the format `YYYY-MM-DD`.
 

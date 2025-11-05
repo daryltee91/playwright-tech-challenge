@@ -21,32 +21,49 @@ const PersonSchema = {
 
 test.describe("API Tests", () => {
   /**
-   * This test iterates through all people in the SWAPI and asserts that each person
-   * in the results contains all expected properties as defined in PersonSchema.
+   * This test iterates through all people in the SWAPI and asserts that
+   * the count of people matches MAX_STAR_WARS_CHARACTERS environment variable.
    */
-  test("GET /people results contains all expected properties", async ({ request }) => {
-    let next: string | null = `${process.env.SWAPI_BASE_URL}/people`;
+  test(`GET /people should return the expected number of people`, async ({ request }) => {
+    const maxStarWarsCharacters = Number(process.env.MAX_STAR_WARS_CHARACTERS);
 
+    // Ensure that MAX_STAR_WARS_CHARACTERS is a valid number
+    expect(!isNaN(maxStarWarsCharacters)).toBeTruthy();
+
+    let next: string | null = "";
+    let resultsCount: number = 0;
+
+    const response = await request.get(`${process.env.SWAPI_BASE_URL}/people`);
+    expect(response.ok()).toBeTruthy();
+
+    const responseBody = await response.json();
+
+    // Assert that the count property from the initial response matches the expected max characters
+    expect(responseBody.count).toBe(maxStarWarsCharacters);
+
+    resultsCount += responseBody.results.length;
+    next = responseBody.next;
+
+    // Iterate through all pages and accumulate resultsCount with the length of results
     while (next !== null) {
       const response = await request.get(next);
       expect(response.ok()).toBeTruthy();
 
       const responseBody = await response.json();
-
-      // Check that each person in results matches the PersonSchema
-      for (const person of responseBody.results) {
-        expect(person).toMatchObject(PersonSchema);
-      }
+      resultsCount += responseBody.results.length;
 
       next = responseBody.next;
     }
+
+    // Assert that the total resultsCount matches the expected max characters
+    expect(resultsCount).toBe(maxStarWarsCharacters);
   });
 
   /**
    * This test iterates through all people in the SWAPI, fetches their individual details,
    * and asserts that the response contains all expected properties as defined in PersonSchema.
    */
-  test("GET /people/{id} results contains all expected properties", async ({ request }) => {
+  test("GET /people/{id} should contain all expected properties", async ({ request }) => {
     let next: string | null = `${process.env.SWAPI_BASE_URL}/people`;
 
     while (next !== null) {

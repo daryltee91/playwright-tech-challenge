@@ -159,7 +159,7 @@ test.describe("Form Submission Tests", () => {
       throw new Error("DEMOQA_FORM_URL is undefined in .env");
     }
 
-    await page.goto(process.env.DEMOQA_FORM_URL);
+    await page.goto(process.env.DEMOQA_FORM_URL, { waitUntil: "domcontentloaded" });
 
     await doFormSubmission(page, students[0]);
     await validateFormSubmission(page, students[0]);
@@ -176,7 +176,7 @@ test.describe("Form Submission Tests", () => {
         throw new Error("DEMOQA_FORM_URL is undefined in .env");
       }
 
-      await page.goto(process.env.DEMOQA_FORM_URL);
+      await page.goto(process.env.DEMOQA_FORM_URL, { waitUntil: "domcontentloaded" });
 
       await doFormSubmission(page, students[1]);
       await validateFormSubmission(page, students[1]);
@@ -195,7 +195,7 @@ test.describe("Form Submission Tests", () => {
       throw new Error("DEMOQA_FORM_URL is undefined in .env");
     }
 
-    await page.goto(process.env.DEMOQA_FORM_URL);
+    await page.goto(process.env.DEMOQA_FORM_URL, { waitUntil: "domcontentloaded" });
 
     const student = {
       ...students[1],

@@ -1,6 +1,12 @@
 # playwright-technical-challenge
 Technical challenge built using Node.js v24, Docker, and Playwright for E2E testing.
 
+## Structure
+
+Datasets for `DemoQA Automation Practice Form` is defined in `assets/data/students.json` in JSON format.
+
+Image used for `DemoQA Automation Practice Form` can be found in `assets/images/example.png`.
+
 Tests for `DemoQA Automation Practice Form` are defined in `tests/demoqa.spec.ts`.
 
 Tests for `SWAPI` are defined in `tests/swapi.spec.ts`.

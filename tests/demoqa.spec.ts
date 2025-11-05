@@ -16,12 +16,6 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
   // Wait for form to be visible
   await expect(page.locator("#userForm")).toBeVisible();
 
-  // Scroll userForm to top of page
-  // This is done to avoid any bottom floating advertisement banners covering form elements
-  await page.evaluate(() => {
-    document.getElementById("userForm")?.scrollIntoView(true);
-  });
-
   // Fill First Name
   await page.getByPlaceholder("First Name").fill(student.firstName);
 

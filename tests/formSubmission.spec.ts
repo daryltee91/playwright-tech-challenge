@@ -173,7 +173,7 @@ test.describe("Form Submission Tests", () => {
     "should fail second student submission due to invalid hobby 'Traveling'",
     async ({ page }) => {
       if (typeof process.env.DEMOQA_FORM_URL === "undefined") {
-        throw new Error(process.env.DEMOQA_FORM_URL);
+        throw new Error("DEMOQA_FORM_URL is undefined in .env");
       }
 
       await page.goto(process.env.DEMOQA_FORM_URL);

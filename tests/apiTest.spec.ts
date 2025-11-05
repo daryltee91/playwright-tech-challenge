@@ -20,6 +20,10 @@ const PersonSchema = {
 };
 
 test.describe("API Tests", () => {
+  /**
+   * This test iterates through all people in the SWAPI and asserts that each person
+   * in the results contains all expected properties as defined in PersonSchema.
+   */
   test("GET /people results contains all expected properties", async ({ request }) => {
     let next: string | null = `${process.env.SWAPI_BASE_URL}/people`;
 
@@ -38,6 +42,10 @@ test.describe("API Tests", () => {
     }
   });
 
+  /**
+   * This test iterates through all people in the SWAPI, fetches their individual details,
+   * and asserts that the response contains all expected properties as defined in PersonSchema.
+   */
   test("GET /people/{id} results contains all expected properties", async ({ request }) => {
     let next: string | null = `${process.env.SWAPI_BASE_URL}/people`;
 
@@ -62,7 +70,7 @@ test.describe("API Tests", () => {
   /**
    * This test iterates through all people in the SWAPI, fetches their individual details,
    * and asserts that the gender field matches one of "male", "female", or "n/a".
-   * 
+   *
    * This step is expected to fail as some entries contain an unexpected value "hermaphrodite".
    */
   test("GET /people/{id} gender should be one of male, female, or n/a", async ({ request }) => {

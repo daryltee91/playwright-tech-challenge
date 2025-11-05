@@ -1,5 +1,9 @@
 # playwright-technical-challenge
-Technical challenge using Playwright for E2E testing
+Technical challenge built using Node.js v24 and Playwright for E2E testing.
+
+Tests for `DemoQA Automation Practice Form` are defined in `tests/formSubmission.spec.ts`.
+
+Tests for `SWAPI` are defined in `tests/apiTest.spec.ts`.
 
 ## Getting Started
 

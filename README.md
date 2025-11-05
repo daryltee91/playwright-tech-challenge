@@ -13,7 +13,7 @@ Tests for `SWAPI` are defined in `tests/swapi.spec.ts`.
 
 ## Getting Started
 
-Create a `.env` file, using `env.sample` as a reference.
+Create a `.env` file, using `.env.example` as a reference.
 
 Install dependencies
 

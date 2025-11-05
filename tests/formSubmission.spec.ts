@@ -150,6 +150,10 @@ test.use({
 });
 
 test.describe("Form Submission Tests", () => {
+  /**
+   * This test performs a form submission for the first student in the dataset
+   * and validates that the submission was successful with correct data.
+   */
   test("should pass first student submission", async ({ page }) => {
     if (typeof process.env.DEMOQA_FORM_URL === "undefined") {
       throw new Error("DEMOQA_FORM_URL is undefined in .env");
@@ -161,6 +165,10 @@ test.describe("Form Submission Tests", () => {
     await validateFormSubmission(page, students[0]);
   });
 
+  /**
+   * This test performs a form submission for the second student in the dataset,
+   * which is expected to fail due to an invalid hobby "Traveling".
+   */
   test.fail(
     "should fail second student submission due to invalid hobby 'Traveling'",
     async ({ page }) => {
@@ -175,6 +183,11 @@ test.describe("Form Submission Tests", () => {
     }
   );
 
+  /**
+   * This test performs a form submission for the second student in the dataset
+   * after removing the invalid hobby "Traveling",
+   * and validates that the submission was successful with correct data.
+   */
   test("should pass second student submission after removing 'Traveling' hobby", async ({
     page,
   }) => {

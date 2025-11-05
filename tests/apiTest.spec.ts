@@ -37,4 +37,25 @@ test.describe("API Tests", () => {
       next = responseBody.next;
     }
   });
+
+  test("GET /people/{id} results contains all expected properties", async ({ request }) => {
+    let next: string | null = `${process.env.SWAPI_BASE_URL}/people`;
+
+    while (next !== null) {
+      const response = await request.get(next);
+      expect(response.ok()).toBeTruthy();
+
+      const responseBody = await response.json();
+
+      for (const res of responseBody.results) {
+        const personResponse = await request.get(res.url);
+        expect(personResponse.ok()).toBeTruthy();
+
+        const person = await personResponse.json();
+        expect(person).toMatchObject(PersonSchema);
+      }
+
+      next = responseBody.next;
+    }
+  });
 });

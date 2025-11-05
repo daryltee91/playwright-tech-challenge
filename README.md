@@ -1,9 +1,9 @@
 # playwright-technical-challenge
 Technical challenge built using Node.js v24 and Playwright for E2E testing.
 
-Tests for `DemoQA Automation Practice Form` are defined in `tests/formSubmission.spec.ts`.
+Tests for `DemoQA Automation Practice Form` are defined in `tests/demoqa.spec.ts`.
 
-Tests for `SWAPI` are defined in `tests/apiTest.spec.ts`.
+Tests for `SWAPI` are defined in `tests/swapi.spec.ts`.
 
 ## Getting Started
 
@@ -57,11 +57,11 @@ docker run -p 3000:9323 -it playwright-tests:latest npm run test:trace
 
 ## Assumptions
 
-### Test Case 1
+### DemoQA Automation Practice Form
 
 - I assume that the datasets are available in a students.json file.
 
-- I assume that the second dataset as-is is expected to fail as there is no hobby checkbox for 'Traveling'.
+- I assume that the second dataset is expected to fail as-is, as there is no hobby checkbox for 'Traveling'.
 
 - I assume that the date of birth is always in the format `YYYY-MM-DD`.
 
@@ -80,3 +80,7 @@ docker run -p 3000:9323 -it playwright-tests:latest npm run test:trace
   - For the format, I assume that the semicolon should come after each address part, to make it more human-readable. Thus, I will format it as:
     
     `[Block Number] [Street Name]; #[Unit Level]-[Unit No.]; [Building Name]; Singapore Postal code [Postal Code]`
+
+### SWAPI
+
+- I assume that the test for checking gender should fail, as one or more of the data contains `hermaphrodite` for gender.

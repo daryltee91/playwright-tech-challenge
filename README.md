@@ -1,5 +1,5 @@
 # playwright-technical-challenge
-Technical challenge built using Node.js v24 and Playwright for E2E testing.
+Technical challenge built using Node.js v24, Docker, and Playwright for E2E testing.
 
 Tests for `DemoQA Automation Practice Form` are defined in `tests/demoqa.spec.ts`.
 
@@ -15,7 +15,7 @@ Install dependencies
 pnpm i
 ```
 
-## Running Locally
+### Running Locally
 
 To run tests without tracing
 
@@ -29,7 +29,7 @@ To run tests with tracing
 pnpm run test:trace
 ```
 
-## Running In Docker Container
+### Running In Docker Container
 
 Build the docker image
 
@@ -59,9 +59,9 @@ docker run -p 3000:9323 -it playwright-tests:latest npm run test:trace
 
 ### DemoQA Automation Practice Form
 
-- I assume that the datasets are available in a students.json file.
+- I assume that the datasets are available in a json file, which I have created in `assets/data/students.json`.
 
-- I assume that the second dataset is expected to fail as-is, as there is no hobby checkbox for 'Traveling'.
+- I assume that the second dataset is expected to fail as-is, as there is no hobby checkbox for `Traveling` in the form.
 
 - I assume that the date of birth is always in the format `YYYY-MM-DD`.
 
@@ -82,5 +82,9 @@ docker run -p 3000:9323 -it playwright-tests:latest npm run test:trace
     `[Block Number] [Street Name]; #[Unit Level]-[Unit No.]; [Building Name]; Singapore Postal code [Postal Code]`
 
 ### SWAPI
+
+- I assume that, to verify the count of people returned by the `/people` endpoint, I have to check the `count` property of the first page, as well as count the number of people returned on all pages.
+
+- I assume that, when checking for the gender of each person, I have to call the `/people/{id}` endpoint instead of relying on the data returned by the `/people` endpoint.
 
 - I assume that the test for checking gender should fail, as one or more of the data contains `hermaphrodite` for gender.

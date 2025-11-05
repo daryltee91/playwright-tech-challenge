@@ -46,7 +46,7 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
   // Fill subjects
   for (const subject of student.subjects) {
     await page.locator("#subjectsInput").pressSequentially(subject);
-    await page.locator("#subjectsInput").press("Enter");
+    await page.locator(".subjects-auto-complete__menu").getByText(subject, { exact: true }).click();
   }
 
   // Select hobbies

@@ -59,7 +59,10 @@ const doFormSubmission = async (page: Page, student: StudentProps) => {
   }
 
   // Set picture
-  await page.getByLabel("Select picture").setInputFiles("assets/images/example.png");
+  const fileChooserPromise = page.waitForEvent("filechooser");
+  await page.getByLabel("Select picture").click();
+  const fileChooser = await fileChooserPromise;
+  await fileChooser.setFiles("assets/images/example.png");
 
   // Fill Current Address
   await page

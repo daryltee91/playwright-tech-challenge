@@ -1,0 +1,42 @@
+[
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "gender": "Male",
+    "mobile": "1234567890",
+    "dateOfBirth": "1991-11-29",
+    "subjects": ["Maths"],
+    "hobbies": ["Sports", "Music"],
+    "address": {
+      "block": "123",
+      "street": "Test Street, Test City",
+      "unit": "03",
+      "level": "1234",
+      "building": "Test Building",
+      "postal": "123456"
+    },
+    "state": "NCR",
+    "city": "Delhi"
+  },
+  {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "jane.smith@example.com",
+    "gender": "Female",
+    "mobile": "9876543210",
+    "dateOfBirth": "1992-05-17",
+    "subjects": ["English"],
+    "hobbies": ["Reading", "Traveling"],
+    "address": {
+      "block": "456",
+      "street": "Sample Avenue, Sample City",
+      "unit": "07",
+      "level": "5678",
+      "building": "Sample Building",
+      "postal": "654321"
+    },
+    "state": "Uttar Pradesh",
+    "city": "Lucknow"
+  }
+]

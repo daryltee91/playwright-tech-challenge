@@ -91,6 +91,4 @@ docker run -p 3000:9323 -it playwright-tests:latest npm run test:trace
 
 - I assume that, to verify the count of people returned by the `/people` endpoint, I have to check the `count` property of the first page, as well as count the number of people returned on all pages.
 
-- I assume that, when checking for the gender of each person, I have to call the `/people/{id}` endpoint instead of relying on the data returned by the `/people` endpoint.
-
 - I assume that the test for checking gender should fail, as one or more of the data contains `hermaphrodite` for gender.
